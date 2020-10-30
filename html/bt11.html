@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<h3> Sử dụng Selection List</h3>
+<ul>
+<fieldset>
+<legend>Nhom 1</legend>
+	<li type="circle"> Dropdown menu: Tạo menu xổ xuống</li>
+    	<form>
+    	  <select name="Product">
+    	    <option value="1">ScanMaster </option>
+    	    <option value="2">ScanMaster II </option>
+    	    <option value="3">LaserPrint 1000 </option>
+    	    <option value="4">LaserPrint 5000 </option>
+    	    <option value="5">Print/Scan150 </option>
+    	    <option value="6">Print/Scan250 </option>
+  	    </select>
+    	</form>
+    <li type="circle"> Dropdown menu: Tạo menu xổ xuống dạng listbox</li>
+    	<form>
+    	  <select name="Product2" size="5" multiple="multiple">
+    	    <option value="1">ScanMaster </option>
+    	    <option value="2">ScanMaster II </option>
+    	    <option value="3">LaserPrint 1000 </option>
+    	    <option value="4">LaserPrint 5000 </option>
+    	    <option value="5">Print/Scan150 </option>
+    	    <option value="6">Print/Scan250 </option>
+  	    </select>
+    	</form>	
+    <li type="circle"> Option Group: nhóm các lựa chọn thành nhóm riêng</li>
+    	<form>
+        <select name="khoi">
+        	<optgroup>
+            	<option value="toan">Toán
+                <option value="ly">Lý
+                <option value="hoa">Hóa
+            </optgroup>
+            <optgroup>
+            	<option value="van">Văn
+                <option value="su">Sử
+                <option value="dia">Địa
+            </optgroup>
+            <optgroup>
+            	<option value="av">Tiếng Anh
+                <option value="nhat">Tiếng Nhật
+                <option value="han">Tiếng Hàn
+            </optgroup>
+            </select>
+        </form>
+</fieldset>
+<fieldset>
+<legend>Nhom 2</legend>
+    <li type="circle"> TextArea: hộp văn bản nhiều dòng</li>
+  		<textarea name="textarea" cols="50" rows="5" wrap="virtual"></textarea>
+    <li type="circle">Label for: Nhãn dùng để tạo liên kết với các thành phần đi kèm </li>
+    <tr>
+    	<td><label for="hoten">HỌ VÀ TÊN : </label></td>
+        <td><input type="text" id="hoten" align="left" /></td><p>
+    </tr>
+    <tr>
+    	<td><label for="namsinh">NĂM SINH :</label></td>
+        <td><input type="text" id="namsinh" align="left" /></td>
+   </tr> 
+</fieldset>	
+</ul>
+</body>
+</html>
