@@ -1,3 +1,37 @@
+<?php
+    include 'db_connect.php';
+    $message = '';
+    
+    $user = isset($_POST['user']) ? $_POST['user'] : '';
+    $pass = isset($_POST['pass']) ? password_hash($_POST['pass'], PASSWORD_DEFAULT) : '';
+    $repass = isset($_POST['repass']) ? $_POST['repass'] : '';
+    $name = isset($_POST['name']) ?$_POST['name'] : '';
+    $gioitinh = isset($_POST['gender']) ? $_POST['gender'] : '';
+    $email = isset($_POST['email']) ? $_POST['email']: '';
+    $sdt = isset($_POST['sdt']) ? $_POST['sdt'] : '';
+    
+    if($_POST['pass'] != $repass){
+        $status = 'error!';
+        $message = 'Mật khẩu xác nhận không chính xác';
+    }
+    $query = "INSERT INTO gvien values('$user','$pass','$name','$email','$sdt','$lop','$gioitinh')";
+    if ($db->query($query) === TRUE) {
+        $status='success';
+        $message='Đăng kí thành công';
+    }
+    else{
+        $status = 'error';
+        $message = 'Đăng kí không thành công';
+    }
+    $arr = array(
+        'status'=> $status,
+        'message' => $message
+    );
+
+    echo json_encode($arr);
+
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -10,66 +44,55 @@
     <div style="login-box box-custom">
         <form action="#" method="post" id="fdangki">
             <table align="center">
-                <tr>
-                    <th colspan="2">Đăng kí</th>
+                <tr style="text-align:center">
+                    <th class="login-box-msg">Đăng kí</th>
                 </tr>
                 <tr>
-                    <td>
-                        <label for="user">Mã giáo viên :</label>
-                    </td>
                     <td>
                         <input id="user" name="user" type="text" placeholder="Mã Giáo Viên" autofocus="">
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <label for="user">Mật khẩu :</label>
-                    </td>
-                    <td>
-                        <input id="pass" name="pass" type="password" placeholder="Mật khẩu" autofocus="">
+                        <input id="pass" name="pass" type="password" placeholder="Mật khẩu">
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <label for="user">Mã giáo viên :</label>
-                    </td>
-                    <td>
-                        <input id="user" name="user" type="text" placeholder="Mã Giáo Viên" autofocus="">
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>
-                        <label for="user">Mã giáo viên :</label>
-                    </td>
-                    <td>
-                        <input id="user" name="user" type="text" placeholder="Mã Giáo Viên" autofocus="">
+                        <input id="repass" name="repass" type="pass" placeholder="Nhập lại mật khẩu">
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <label for="user">Mã giáo viên :</label>
-                    </td>
-                    <td>
-                        <input id="user" name="user" type="text" placeholder="Mã Giáo Viên" autofocus="">
+                        <input id="name" name="name" type="text" placeholder="Tên Giáo Viên">
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <label for="user">Mã giáo viên :</label>
-                    </td>
-                    <td>
-                        <input id="user" name="user" type="text" placeholder="Mã Giáo Viên" autofocus="">
+                        <input id="email" name="email" type="text" placeholder="Email">
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2" align="center">
-                        <input id="submit" name="submit" type="submit" value="Đăng kí">
+                    <td>
+                        <input id="phone" name="phone" type="text" placeholder="Số điện thoại">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input id="gender" name="gender" type="radio" value="Nam" checked=true>Nam</input>
+                        <input id="gender" name="gender" type="radio" value="Nu">Nữ</input>
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td>
+                        <input name="dangki" type="submit" form="fdangki" value="Đăng kí">
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td class="login-box-msg" id="message">
                     </td>
                 </tr>
             </table>
-
-
         </form>
     </div>
 
@@ -97,6 +120,13 @@
         border: 1px solid #cccccc;
         padding: 20px;
         color: #666;
+    }
+
+    li {
+        padding: 5px 50px 6px 7px;
+        margin-top: 3px;
+        margin-bottom: 3px;
+        list-style: none;
     }
     </style>
 </body>
