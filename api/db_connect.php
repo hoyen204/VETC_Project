@@ -1,4 +1,9 @@
 <?php
+    function ReturnResult($status,$message){
+        $arr = array('status'=> $status,'message' => $message);
+        echo json_encode($arr);
+    }
+    
     $servername = "localhost";
     $username = "root";
     $password = "";

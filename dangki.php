@@ -1,35 +1,46 @@
 <?php
-    include 'db_connect.php';
+    include 'api/db_connect.php';
     $message = '';
     
     $user = isset($_POST['user']) ? $_POST['user'] : '';
     $pass = isset($_POST['pass']) ? password_hash($_POST['pass'], PASSWORD_DEFAULT) : '';
     $repass = isset($_POST['repass']) ? $_POST['repass'] : '';
     $name = isset($_POST['name']) ?$_POST['name'] : '';
-    $gioitinh = isset($_POST['gender']) ? $_POST['gender'] : '';
     $email = isset($_POST['email']) ? $_POST['email']: '';
-    $sdt = isset($_POST['sdt']) ? $_POST['sdt'] : '';
-    
-    if($_POST['pass'] != $repass){
-        $status = 'error!';
-        $message = 'Mật khẩu xác nhận không chính xác';
-    }
-    $query = "INSERT INTO gvien values('$user','$pass','$name','$email','$sdt','$lop','$gioitinh')";
-    if ($db->query($query) === TRUE) {
-        $status='success';
-        $message='Đăng kí thành công';
-    }
-    else{
-        $status = 'error';
-        $message = 'Đăng kí không thành công';
-    }
-    $arr = array(
-        'status'=> $status,
-        'message' => $message
-    );
+    $sdt = isset($_POST['phone']) ? $_POST['phone'] : '';
+    $gioitinh = isset($_POST['gender']) ? $_POST['gender'] : '';
 
-    echo json_encode($arr);
+    if(isset($_POST['dangki'])){
+        if($_POST['pass'] != $repass){
+            $status = 'error!';
+            $message = 'Mật khẩu xác nhận không chính xác';
+            ReturnResult($status,$message);
+            exit();
+        }
 
+        $sql="SELECT * FROM gvien WHERE magv='$user'";
+        if ($result=mysqli_query($db,$sql))
+        {
+            if(mysqli_num_rows($result)>0){
+                $status = 'error!';
+                $message = "Mã giáo viên đã được đăng kí";
+                ReturnResult($status,$message);
+                exit();
+            }
+        }
+
+        $query = "INSERT INTO gvien values('$user','$name','$pass','$email','$sdt','$gioitinh')";
+        if ($db->query($query) === TRUE) {
+            $status='success';
+            $message='Đăng kí thành công';
+        }
+        else{
+            $status = 'error';
+            $message = 'Đăng kí không thành công';
+        }
+        
+        ReturnResult($status,$message);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -59,7 +70,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <input id="repass" name="repass" type="pass" placeholder="Nhập lại mật khẩu">
+                        <input id="repass" name="repass" type="password" placeholder="Nhập lại mật khẩu">
                     </td>
                 </tr>
                 <tr>
